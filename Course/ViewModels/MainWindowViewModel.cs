@@ -82,16 +82,16 @@ namespace Course.ViewModels
 
             #endregion
 
-            var data_ponts = new List<DataPoint>((int)(360 / 0.1));
+            var data_points = new List<DataPoint>((int)(360 / 0.1));
             for (var x = 0d; x <= 360; x += 0.1)
             {
                 const double to_rad = Math.PI / 180;
                 var y = Math.Sin(x * to_rad);
 
-                data_ponts.Add(new DataPoint { XValue = x, YValue = y });
+                data_points.Add(new DataPoint { XValue = x, YValue = y });
             }
 
-            TestDataPoints = data_ponts;
+            TestDataPoints = data_points;
         }
     }
 }

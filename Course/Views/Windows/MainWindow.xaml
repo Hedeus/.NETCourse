@@ -4,9 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:fa="http://schemas.fontawesome.com/icons/"
-        xmlns:cmd="clr-namespace:Course.Infrastructure.Commands"
-        xmlns:vm="clr-namespace:Course.ViewModels"
         xmlns:oxy="http://oxyplot.org/wpf"
+        xmlns:cmd="clr-namespace:Course.Infrastructure.Commands"
+        xmlns:vm="clr-namespace:Course.ViewModels"        
         xmlns:local="clr-namespace:Course"        
         Title="{Binding Title}"
         Height="450" Width="800">
@@ -73,14 +73,23 @@
                             <MouseBinding Command="{Binding CloseApplicationCommand}"
                                           MouseAction="LeftDoubleClick"/>
                         </Ellipse.InputBindings>
-                    </Ellipse>
+                    </Ellipse>                    
                     <GridSplitter Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"
                                   HorizontalAlignment="Right"
                                   Width="4"/>
                 </Grid>
             </TabItem>
             <TabItem Header="График">
-                <oxy:Plot></oxy:Plot>
+                <oxy:Plot>
+                    <oxy:Plot.Axes>
+                        <oxy:LinearAxis Position="Left"/>
+                        <oxy:LinearAxis Position="Bottom"/>
+                    </oxy:Plot.Axes>
+                    <oxy:LineSeries Color="Red"
+                                    ItemsSource="{Binding TestDataPoints}"
+                                    DataFieldX="XValue"
+                                    DataFieldY="YValue"/>
+                </oxy:Plot>
             </TabItem>
         </TabControl>
     </DockPanel>
