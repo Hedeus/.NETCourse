@@ -69,7 +69,62 @@ namespace Course.ViewModels
         private void OnCloseApplicationCommandExecuted(object p)
         {
             Application.Current.Shutdown();
-        } 
+        }
+        #endregion
+
+        #endregion
+
+        #region Входние данные
+        /// <summary>
+        /// Свойства отвечающие за входные данные xmin, xmax, dx, a
+        /// </summary>
+
+        #region XMin
+
+        private double _XMin = 0d;
+
+        public double XMin
+        {
+            get => _XMin;
+            set => Set(ref _XMin, value);
+        }
+
+        #endregion
+
+        #region XMax
+
+        private double _XMax = 0d;
+
+        public double XMax
+        {
+            get => _XMax;
+            set => Set(ref _XMax, value);
+        }
+
+        #endregion
+
+        #region DX
+
+        private double _DX = 0d;
+
+        public double DX
+        {
+            get => _DX;
+            set => Set(ref _DX, value);
+        }
+
+        #endregion
+
+        #region A
+
+        private double _A = 0d;
+
+        public double A
+        {
+            get => _A;
+            set => Set(ref _A, value);
+        }
+
         #endregion
 
         #endregion
