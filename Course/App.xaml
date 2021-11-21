@@ -4,6 +4,10 @@
              xmlns:local="clr-namespace:Course"
              StartupUri="Views/Windows/MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Course;component/Data/Images/ResourcesImg.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+                </ResourceDictionary>
     </Application.Resources>
 </Application>
