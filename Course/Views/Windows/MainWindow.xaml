@@ -95,8 +95,7 @@
                            FontSize="16" Margin="3" HorizontalAlignment="Left"/>
             </Grid>
             <!--<Image Grid.Column="0" Source="/Data/Images/IMG_1.jpg" Margin="3" HorizontalAlignment="Center"/>-->
-            <Image Grid.Column="0" Source="{StaticResource MyImg}" Margin="3" HorizontalAlignment="Center"/>
-            <!--<Image Grid.Column="0" Source="{StaticResource MyImg}" Margin="3" HorizontalAlignment="Center"/>-->
+            <Image Grid.Column="0" Source="{DynamicResource MyImg}" Margin="3" HorizontalAlignment="Center"/>            
         </Grid>
     </Grid>
 </Window>
