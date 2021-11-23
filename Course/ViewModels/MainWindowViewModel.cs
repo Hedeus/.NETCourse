@@ -10,6 +10,8 @@ namespace Course.ViewModels
 {
     internal class MainWindowViewModel : ViewModel
     {
+        #region Свойства
+
         #region Заголовок окна
         private string _Title = "Курсовая работа по C#";
 
@@ -86,6 +88,54 @@ namespace Course.ViewModels
 
         #endregion
 
+        //#region F1CalcResults - Результаты расчетов по первой формуле.
+
+        //private List<CalcResults> _F1CalcResults;
+
+        //public List<CalcResults> F1CalcResults
+        //{
+        //    get => _F1CalcResults;
+        //    set => Set(ref _F1CalcResults, value);
+        //}
+
+        //#endregion
+
+        //#region F2CalcResults - Результаты расчетов по второй формуле.
+
+        //private List<CalcResults> _F2CalcResults;
+
+        //public List<CalcResults> F2CalcResults
+        //{
+        //    get => _F2CalcResults;
+        //    set => Set(ref _F2CalcResults, value);
+        //}
+
+        //#endregion
+
+        #region F1CalcResults - Результаты расчетов по первой формуле.
+
+        //public object[] _F1CalcResults;
+
+        public string[] F1CalcResults { get; set; }
+        //{
+        //    get => _F1CalcResults;
+        //    set => Set(ref _F1CalcResults, value);
+        //}
+
+        #endregion
+
+        #region F2CalcResults - Результаты расчетов по второй формуле.
+
+        private List<CalcResults> _F2CalcResults;
+
+        public List<CalcResults> F2CalcResults
+        {
+            get => _F2CalcResults;
+            set => Set(ref _F2CalcResults, value);
+        }
+
+        #endregion      
+
         #region Status : String - Статус программы
 
         /// <summary>Статус программы</summary>
@@ -96,6 +146,57 @@ namespace Course.ViewModels
         {
             get => _Status;
             set => Set(ref _Status, value);
+        }
+
+        #endregion
+
+        #endregion
+
+        /* ---------------------------------------------------------------------------------------------------------------------------------------*/
+
+        #region Методы
+
+        #region Необходимые расчеты
+
+        #region CalculationF1 - Необходимые расчеты по первой формуле.        
+
+        private string[] CalculationF1 (double XMin, double XMax, double DX, double A, double Q)
+        {
+            var Res_list = new List<string>();
+            string TempRes;
+            if (DX <= 0) { return Res_list.ToArray(); }
+            for (double X = XMin; X <= XMax; X += DX)
+            {
+                if (A <= X)
+                {
+                    TempRes = "Неможливо взяти логарифм (a-x)<= 0, при a=" + A.ToString("0.000") + " та x=" + X.ToString("0.000");
+                }
+                else
+                {
+                    double Y = (Math.Log10(A - X)) / Q;
+                    TempRes = "x= " + X.ToString("0.000") + ", q= " + Q.ToString("0.000") + ", y= " + Y.ToString("0.000");
+                }
+                Res_list.Add(TempRes);
+            }
+
+            return Res_list.ToArray();
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Calculation - Вызов подходящей функции
+
+        private void Calculation()
+        {
+            Random rnd = new Random();
+            double Q = rnd.Next(1,7)/10d;
+            if (Q <= 0.7)
+            {
+                F1CalcResults = CalculationF1(XMin, XMax, DX, A, Q);
+                return;
+            }
         }
 
         #endregion
@@ -117,6 +218,19 @@ namespace Course.ViewModels
 
         #endregion
 
+        #region  CalculateCommand
+        public ICommand CalculateCommand { get; }
+
+        private bool CanCalculateCommandExecute(object p) => true;
+
+        private void OnCalculateCommandExecuted(object p)
+        {
+            Calculation();
+        }
+        #endregion
+
+        #endregion
+
         /* ---------------------------------------------------------------------------------------------------------------------------------------*/
 
         public MainWindowViewModel()
@@ -125,9 +239,14 @@ namespace Course.ViewModels
 
             //CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
 
-
+            CalculateCommand = new LambdaCommand(OnCalculateCommandExecuted, CanCalculateCommandExecute);
 
             #endregion
+
+            //var data_list = new List<string>();
+            //data_list.Add("Hello");
+            //data_list.Add("World!");
+            //F1CalcResults = data_list.ToArray();
 
 
 

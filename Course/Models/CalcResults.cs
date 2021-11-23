@@ -13,8 +13,8 @@ namespace Course.Models
         }
     }
 
-    internal class FunctionResult
-    {
-        public ICollection<CalcResults> XnResult { get; set; }
-    }
+    //internal class FunctionResult
+    //{
+    //    public ICollection<CalcResults> XnResult { get; set; }
+    //}
 }
