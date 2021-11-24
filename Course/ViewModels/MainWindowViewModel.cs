@@ -1,5 +1,4 @@
 ﻿using Course.Infrastructure.Commands.Base;
-using Course.Models;
 using Course.ViewModels.Base;
 using System;
 using System.Collections.Generic;
