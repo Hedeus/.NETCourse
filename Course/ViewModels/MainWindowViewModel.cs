@@ -40,7 +40,7 @@ namespace Course.ViewModels
 
         #region XMin
 
-        private double _XMin = 0d;
+        private double _XMin = 1d;
 
         public double XMin
         {
@@ -52,7 +52,7 @@ namespace Course.ViewModels
 
         #region XMax
 
-        private double _XMax = 0d;
+        private double _XMax = 5d;
 
         public double XMax
         {
@@ -64,7 +64,7 @@ namespace Course.ViewModels
 
         #region DX
 
-        private double _DX = 0d;
+        private double _DX = 0.5;
 
         public double DX
         {
@@ -76,7 +76,7 @@ namespace Course.ViewModels
 
         #region A
 
-        private double _A = 0d;
+        private double _A = 4d;
 
         public double A
         {
@@ -88,53 +88,56 @@ namespace Course.ViewModels
 
         #endregion
 
-        //#region F1CalcResults - Результаты расчетов по первой формуле.
-
-        //private List<CalcResults> _F1CalcResults;
-
-        //public List<CalcResults> F1CalcResults
-        //{
-        //    get => _F1CalcResults;
-        //    set => Set(ref _F1CalcResults, value);
-        //}
-
-        //#endregion
-
-        //#region F2CalcResults - Результаты расчетов по второй формуле.
-
-        //private List<CalcResults> _F2CalcResults;
-
-        //public List<CalcResults> F2CalcResults
-        //{
-        //    get => _F2CalcResults;
-        //    set => Set(ref _F2CalcResults, value);
-        //}
-
-        //#endregion
+        #region Результаты
+        /// <summary>
+        /// Свойства отвечающие за входные данные xmin, xmax, dx, a
+        /// </summary>
 
         #region F1CalcResults - Результаты расчетов по первой формуле.
 
-        //public object[] _F1CalcResults;
-
-        public string[] F1CalcResults { get; set; }
-        //{
-        //    get => _F1CalcResults;
-        //    set => Set(ref _F1CalcResults, value);
-        //}
+        private string[] _F1CalcResults;
+        public string[] F1CalcResults 
+        { 
+            get => _F1CalcResults;
+            set => Set(ref _F1CalcResults, value); 
+        }
 
         #endregion
 
         #region F2CalcResults - Результаты расчетов по второй формуле.
 
-        private List<CalcResults> _F2CalcResults;
-
-        public List<CalcResults> F2CalcResults
+        private string[] _F2CalcResults;
+        public string[] F2CalcResults
         {
             get => _F2CalcResults;
             set => Set(ref _F2CalcResults, value);
         }
 
-        #endregion      
+        #endregion
+
+        #region Количество расчетов по первой формуле
+
+        private string _F1Count = "К-ть розрахунків f1(x) = 0";
+        public string F1Count
+        {
+            get => _F1Count;
+            set => Set(ref _F1Count, value);
+        }
+
+        #endregion
+
+        #region Количество расчетов по второй формуле
+
+        private string _F2Count = "К-ть розрахунків f2(x) = 0";
+        public string F2Count
+        {
+            get => _F2Count;
+            set => Set(ref _F2Count, value);
+        }
+
+        #endregion
+
+        #endregion
 
         #region Status : String - Статус программы
 
@@ -148,7 +151,7 @@ namespace Course.ViewModels
             set => Set(ref _Status, value);
         }
 
-        #endregion
+        #endregion       
 
         #endregion
 
@@ -160,43 +163,78 @@ namespace Course.ViewModels
 
         #region CalculationF1 - Необходимые расчеты по первой формуле.        
 
-        private string[] CalculationF1 (double XMin, double XMax, double DX, double A, double Q)
-        {
-            var Res_list = new List<string>();
-            string TempRes;
-            if (DX <= 0) { return Res_list.ToArray(); }
-            for (double X = XMin; X <= XMax; X += DX)
-            {
-                if (A <= X)
-                {
-                    TempRes = "Неможливо взяти логарифм (a-x)<= 0, при a=" + A.ToString("0.000") + " та x=" + X.ToString("0.000");
-                }
-                else
-                {
-                    double Y = (Math.Log10(A - X)) / Q;
-                    TempRes = "x= " + X.ToString("0.000") + ", q= " + Q.ToString("0.000") + ", y= " + Y.ToString("0.000");
-                }
-                Res_list.Add(TempRes);
-            }
+        //private string[] CalculationF1 (double XMin, double XMax, double DX, double A, double Q)
+        //{
+        //    var Res_list = new List<string>();
+        //    string TempRes;
+        //    if (DX <= 0) { return Res_list.ToArray(); }
+        //    for (double X = XMin; X <= XMax; X += DX)
+        //    {
+        //        if (A <= X)
+        //        {
+        //            TempRes = "Неможливо взяти логарифм (a-x)<= 0, при a=" + A.ToString("0.000") + " та x=" + X.ToString("0.000");
+        //        }
+        //        else
+        //        {
+        //            double Y = (Math.Log10(A - X)) / Q;
+        //            TempRes = "x= " + X.ToString("0.000") + ", q= " + Q.ToString("0.000") + ", y= " + Y.ToString("0.000");
+        //        }
+        //        Res_list.Add(TempRes);
+        //    }
 
-            return Res_list.ToArray();
-        }
-
-        #endregion
+        //    return Res_list.ToArray();
+        //}
 
         #endregion
 
-        #region Calculation - Вызов подходящей функции
+        #endregion
 
+        #region Calculation - Метод разрахунків
+                
         private void Calculation()
         {
             Random rnd = new Random();
-            double Q = rnd.Next(1,7)/10d;
-            if (Q <= 0.7)
+            var Res_list1 = new List<string>();
+            var Res_list2 = new List<string>();
+            string TempRes;            
+            if (DX <= 0 ||  XMax < XMin)
             {
-                F1CalcResults = CalculationF1(XMin, XMax, DX, A, Q);
+                TempRes = "DX має бути більше 0. XMin має бути менше XMax ";
+                Res_list1.Add(TempRes);
+                F1CalcResults = Res_list1.ToArray();                
+                F2CalcResults = Res_list1.ToArray();
                 return;
             }
+            double Q;
+            double Y;
+            for (double X = XMin; X <= XMax; X += DX)
+            {
+                Q = rnd.Next(1, 10) / 10d;
+                if (Q <= 0.7)
+                {
+                    if (A > X)
+                    {
+                        Y = (Math.Log10(A - X)) / Q;
+                        TempRes = "x= " + X.ToString("0.000") + ", q= " + Q.ToString("0.000") + ", y= " + Y.ToString("0.000");                        
+                    }
+                    else
+                    {
+                        TempRes = "a <= x. Обчислення десятково логарифма числа меншого чи рівного нулю неможливе.";
+                    }
+                    Res_list1.Add(TempRes);
+                }
+                else
+                {
+                    Y = Math.Pow((Q*X), 1/3d);
+                    TempRes = "x= " + X.ToString("0.000") + ", q= " + Q.ToString("0.000") + ", y= " + Y.ToString("0.000");
+                    Res_list2.Add(TempRes);
+                }
+            }
+            F1CalcResults = Res_list1.ToArray();
+            F2CalcResults = Res_list2.ToArray();
+            F1Count = "К - ть розрахунків f1(x) = " + F1CalcResults.Length.ToString();
+            F2Count = "К - ть розрахунків f2(x) = " + F2CalcResults.Length.ToString();
+            return;
         }
 
         #endregion
@@ -241,14 +279,7 @@ namespace Course.ViewModels
 
             CalculateCommand = new LambdaCommand(OnCalculateCommandExecuted, CanCalculateCommandExecute);
 
-            #endregion
-
-            //var data_list = new List<string>();
-            //data_list.Add("Hello");
-            //data_list.Add("World!");
-            //F1CalcResults = data_list.ToArray();
-
-
+            #endregion        
 
         }
     }

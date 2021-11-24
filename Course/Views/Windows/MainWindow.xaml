@@ -92,7 +92,8 @@
                     <RowDefinition Height="50"/>
                     <RowDefinition Height="50*"/>
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0" Content="f1(x)" FontSize="16" Margin="5" HorizontalAlignment="Center"/>
+                <Label Grid.Row="0" Content="{Binding F1Count}"
+                       FontSize="16" Margin="5" HorizontalAlignment="Center"/>
                 <ListBox Grid.Row="1" Margin="3" ItemsSource="{Binding F1CalcResults}"/>
             </Grid>
             <Grid Grid.Column="1">
@@ -100,8 +101,9 @@
                     <RowDefinition Height="50"/>
                     <RowDefinition Height="50*"/>
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0" Content="f2(x)" FontSize="16" Margin="5" HorizontalAlignment="Center"/>
-                <ListBox Grid.Row="1" Margin="3" ItemsSource="{Binding}"/>
+                <Label Grid.Row="0" Content="{Binding F2Count}"
+                       FontSize="16" Margin="5" HorizontalAlignment="Center"/>
+                <ListBox Grid.Row="1" Margin="3" ItemsSource="{Binding F2CalcResults}"/>
             </Grid>
 
         </Grid>
