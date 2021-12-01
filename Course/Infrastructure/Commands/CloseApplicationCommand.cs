@@ -1,7 +1,7 @@
-﻿using Course.Infrastructure.Commands.Base;
+﻿using Weather.Infrastructure.Commands.Base;
 using System.Windows;
 
-namespace Course.Infrastructure.Commands
+namespace Weather.Infrastructure.Commands
 {
     internal class CloseApplicationCommand : Command
     {

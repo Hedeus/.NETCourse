@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace Course.ViewModels.Base
+namespace Weather.ViewModels.Base
 {
 
     internal abstract class ViewModel : INotifyPropertyChanged//, IDisposable

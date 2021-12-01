@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace Course.Infrastructure.Commands.Base
+namespace Weather.Infrastructure.Commands.Base
 {
     internal abstract class Command : ICommand
     {

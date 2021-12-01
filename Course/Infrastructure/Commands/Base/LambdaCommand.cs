@@ -1,7 +1,7 @@
 ﻿using System;
-using Course.Infrastructure.Commands.Base;
+using Weather.Infrastructure.Commands.Base;
 
-namespace Course.Infrastructure.Commands.Base
+namespace Weather.Infrastructure.Commands.Base
 {
     internal class LambdaCommand : Command
     {

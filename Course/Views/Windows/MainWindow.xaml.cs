@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Course
+namespace Weather
 {
     
     public partial class MainWindow : Window

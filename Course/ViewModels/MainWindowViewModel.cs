@@ -1,10 +1,10 @@
-﻿using Course.Infrastructure.Commands.Base;
-using Course.ViewModels.Base;
+﻿using Weather.Infrastructure.Commands.Base;
+using Weather.ViewModels.Base;
 using System;
 using System.Windows;
 using System.Windows.Input;
 
-namespace Course.ViewModels
+namespace Weather.ViewModels
 {
     internal class MainWindowViewModel : ViewModel
     {
